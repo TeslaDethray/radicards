@@ -85,6 +85,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+SITE_ID = 1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -104,5 +105,10 @@ SUIT_CONFIG = {
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
-        'TIME_ZONE': ('UTC', 'Your local time zone. See this list for a full selection: http://php.net/manual/en/timezones.php'),
+    'SITE_NAME': ('Radicards', "Your card site's name"),
+    'TEMPLATE': ('radicards', "The template to use"),
+    'NUM_CARDS': (10, "Number of templates on the homepage"),
+    'ANALYTICS_CODE': ('', "Your analytics tracker code"),
+    'META TAGS': ('', "Meta tags for your site's <head>"),
+    'SHARE': ('Facebook,Twitter', "List the social networks for which you want buttons.")
 }
