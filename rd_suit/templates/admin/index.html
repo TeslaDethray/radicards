@@ -45,6 +45,7 @@
       <p>{% trans "You don't have permission to edit anything." %}</p>
     {% endif %}
   </div>
+
 {% endblock %}
 
 
@@ -88,4 +89,14 @@
       {% endif %}
     </div>
   </div>
+
+  {% block rd_copyright %}
+    <div class="copyright" style="text-align: right; font-size: 10px; line-height: 10px; clear: both; float: none;">
+      Powered by <a href="http://radicaldesigns.org" style="text-decoration: none;"><span style="color: #000000; font-weight: bold;">radical</span><span style="color: orange; font-weight: lighter;">DESIGNS</span></a>
+      {% endblock %}
+      <br>
+      {% block copyright %}
+        Admin theme by <a href="http://djangosuit.com" target="_blank" style="text-decoration: none; color: #333333;">DjangoSuit.com</a>
+    </div>
+  {% endblock %}
 {% endblock %}

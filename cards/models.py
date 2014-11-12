@@ -48,6 +48,16 @@ class Person(models.Model):
     def __unicode__(self): #Python 2.x
         return self.first_name + ' ' + self.last_name
 
+class Font(models.Model):
+    name = models.CharField(max_length = 34)
+    font_file = models.FileField(upload_to = 'media/fonts', null = True, blank = True)
+    external_url = models.CharField(max_length = 144, null = True, blank = True)
+
+    def __str__(self):
+        return self.name
+    def __unicode__(self): #Python 2.x
+        return self.name
+
 class Template(models.Model):
     art = models.ForeignKey(Art)
     order = models.IntegerField(default = 0)
@@ -56,8 +66,9 @@ class Template(models.Model):
     max_width = models.IntegerField(default = 0)
     max_height = models.IntegerField(default = 0)
     text_color = ColorPickerField()
+    font = models.ForeignKey(Font)
     font_size = models.CharField(max_length = 8)
-    font_file = models.FileField(upload_to = 'media/fonts', blank = True)
+    published = models.BooleanField(default = True)
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
 

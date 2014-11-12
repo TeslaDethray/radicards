@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'constance',
+    'constance.backends.database',
     'rd_suit',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +44,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'paintstore',
-    'settings',
     'cards',
 )
 
@@ -98,4 +99,10 @@ SUIT_CONFIG = {
     'HEADER_TIME_FORMAT': 'H:i:s',
     'MENU_EXCLUDE': ('auth.group', 'auth'),
     'LIST_PER_PAGE': 20,
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+        'TIME_ZONE': ('UTC', 'Your local time zone. See this list for a full selection: http://php.net/manual/en/timezones.php'),
 }
