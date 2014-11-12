@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import render
 from cards.models import Card, Template
+#from settings.models import Settings
 
 def index(request):
     return HttpResponse("Index page")
