@@ -90,8 +90,13 @@ SITE_ID = 1
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_URL = '/media/'
+STATIC_URL = '/static/'
 
+STATIC_ROOT = '/Users/tesladethray/Work/radicards/static/'
+
+MEDIA_URL = '/'
+
+MEDIA_ROOT = '/Users/tesladethray/Work/radicards/media/'
 
 #Suit
 SUIT_CONFIG = {
@@ -110,5 +115,7 @@ CONSTANCE_CONFIG = {
     'NUM_CARDS': (10, "Number of templates on the homepage"),
     'ANALYTICS_CODE': ('', "Your analytics tracker code"),
     'META TAGS': ('', "Meta tags for your site's <head>"),
-    'SHARE': ('Facebook,Twitter', "List the social networks for which you want buttons.")
+    'SHARE': ('Facebook, Twitter', "List the social networks for which you want buttons."),
+    'FORM_FIELDS': ('sender_first_name, sender_last_name, sender_email, sender_postal_code, sender_referrer, sender_mailing_list, recipient_first_name, recipient_last_name, recipient_email', "Form fields available for the users to fill out"),
+    'REQUIRED_FIELDS': ('sender_first_name, sender_email, recipient_first_name, recipient_email', "Required form fields"),
 }

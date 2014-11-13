@@ -2,28 +2,28 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.shortcuts import render
 from cards.models import Card, Template
-#from settings.models import Settings
+from constance import config
+from django.views import generic
 
-def index(request):
-    return HttpResponse("Index page")
+class IndexView(generic.ListView):
+    model = Template
+    template_name = config.TEMPLATE + '/index.html'
+
+    def get_queryset(self):
+        return Template.objects.order_by('order')[:config.NUM_CARDS]
 
 def create(request, template_id):
     try:
         template = Template.objects.get(pk = template_id)
     except Template.DoesNotExist:
         raise Http404
-    return render(request, 'cards/create.html', {'template': template})
+    return render(request, config.TEMPLATE + '/create.html', {'template': template, 'config': config})
 
-def share(request, hashed_id):
-    try:
-        card = Card.objects.get(hashed_id = hashed_id)
-    except Card.DoesNotExist:
-        raise Http404
-    return render(request, 'cards/share.html', {'card': card})
+class ResultsView(generic.DetailView): #Share
+    model = Card
+    template_name = config.TEMPLATE + '/share.html'
 
-def view(request, hashed_id):
-    try:
-        card = Card.objects.get(hashed_id = hashed_id)
-    except Card.DoesNotExist:
-        raise Http404
-    return render(request, 'cards/view.html', {'card': card})
+
+class DetailView(generic.DetailView): #View
+    model = Card
+    template_name = config.TEMPLATE + '/view.html'

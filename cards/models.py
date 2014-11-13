@@ -84,13 +84,13 @@ class Card(models.Model):
     template = models.ForeignKey(Template, null = True)
     recipient = models.ForeignKey(Person, related_name = '+', null = True)
     sender = models.ForeignKey(Person, related_name = '+', null = True)
-    hashed_id = models.CharField(max_length = 55, null = True)
+    slug = models.SlugField(max_length = 55)
     short_url = models.CharField(max_length = 55, null = True)
     message = models.TextField(null = True, blank = True)
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
 
     def __str__(self):
-        return self.hashed_id
+        return self.slug
     def __unicode__(self): #Python 2.x
-        return self.hashed_id
+        return self.slug
