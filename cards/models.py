@@ -1,4 +1,6 @@
 from django.db import models
+from collections import defaultdict
+from constance import config
 from paintstore.fields import ColorPickerField
 
 class Artist(models.Model):
@@ -74,6 +76,48 @@ class Template(models.Model):
 
     def artist(self):
         return self.art.artist
+    def form_fields(self, string_fields):
+        fields = string_fields.replace(' ', '').split(',')
+
+        field_dict = {
+            'sender': [],
+            'recipient': [],
+            'message': [],
+        }
+
+        for field in fields:
+            field_split = field.split('_', 1)
+            attribute = field_split.pop()
+            if not field_split:
+                field_dict[attribute] = True
+            else:
+                part = field_split.pop()
+                field_dict[part].append(attribute)
+
+        return field_dict
+
+    def field_types(self):
+        field_types = {
+            'first_name': 'text', 
+            'last_name': 'text', 
+            'email': 'text', 
+            'postal_code': 'text', 
+            'referrer': 'hidden', 
+            'mailing_list': 'checkbox', 
+            'message': 'textarea', 
+        }
+        return field_types
+
+    def field_labels(self):
+        field_types = {
+            'first_name': 'First Name', 
+            'last_name': 'Last Name', 
+            'email': 'Email', 
+            'postal_code': 'Postal Code', 
+            'mailing_list': 'Join Our Mailing List?', 
+            'message': 'Message', 
+        }
+        return field_types
 
     def __str__(self):
         return self.art.name
@@ -94,3 +138,4 @@ class Card(models.Model):
         return self.slug
     def __unicode__(self): #Python 2.x
         return self.slug
+

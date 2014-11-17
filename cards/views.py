@@ -17,7 +17,8 @@ def create(request, template_id):
         template = Template.objects.get(pk = template_id)
     except Template.DoesNotExist:
         raise Http404
-    return render(request, config.TEMPLATE + '/create.html', {'template': template, 'config': config})
+    fields = config.FORM_FIELDS.split(',')
+    return render(request, config.TEMPLATE + '/create.html', {'template': template, 'fields': template.form_fields(config.FORM_FIELDS), 'required': template.form_fields(config.REQUIRED_FIELDS), 'types': template.field_types, 'labels': template.field_labels})
 
 class ResultsView(generic.DetailView): #Share
     model = Card
@@ -27,3 +28,6 @@ class ResultsView(generic.DetailView): #Share
 class DetailView(generic.DetailView): #View
     model = Card
     template_name = config.TEMPLATE + '/view.html'
+
+def add(request):
+    pass

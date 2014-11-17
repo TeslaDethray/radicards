@@ -9,6 +9,7 @@ urlpatterns = patterns('',
 
     url(r'^card/(?P<slug>\w+)/$', views.DetailView.as_view(), name = 'view'),
     url(r'^create/(?P<template_id>[0-9]+)/$', views.create, name = 'create'),
+    url(r'^add/$', views.add, name = 'add'),
     url(r'^share/(?P<slug>\w+)/$', views.ResultsView.as_view(), name = 'share'),
 )
 
