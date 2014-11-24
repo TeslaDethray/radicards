@@ -8,7 +8,6 @@
 {% csrf_token %}
 <input type="hidden" name="template" value="{{ template.id }}">
 
-<div id="sender_fields">
 {% for field in fields.sender %}
     <div>
       <label for="sender_{{ field }}">{{ labels|keyvalue:field }}
@@ -23,42 +22,6 @@
       />
     </div>
 {% endfor %}
-</div> <!-- #sender_fields -->
-
-<div id="recipient_fields">
-{% for field in fields.recipient %}
-    <div>
-      <label for="sender_{{ field }}">{{ labels|keyvalue:field }}
-        {% if field in required.recipient %}
-          *
-        {% endif %}
-      </label>
-      <input type="{{ types|keyvalue:field }}" name="recipient_{{ field }}" id="recipient_{ field }}" 
-        {% if field in required.recipient %}
-          required="required"
-        {% endif %}
-      />
-    </div>
-{% endfor %}
-</div> <!-- #recipient_fields -->
-
-{% if fields.message %}
-<div id="message_field">
-    <div>
-      <label for="message">{{ labels|keyvalue:'message' }}
-        {% if required.message %}
-          *
-        {% endif %}
-      </label>
-      <textarea name="message" id="message" 
-        {% if required.message %}
-          required="required"
-        {% endif %}
-      />
-    </textarea>
-    </div>
-</div> <!-- #message_field -->
-{% endif %}
 
 <input type="submit" value="Vote" />
 </form>
