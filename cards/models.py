@@ -53,7 +53,6 @@ class Person(models.Model):
 class Font(models.Model):
     name = models.CharField(max_length = 34)
     font_file = models.FileField(upload_to = 'media/fonts', null = True, blank = True)
-    external_url = models.CharField(max_length = 144, null = True, blank = True)
 
     def __str__(self):
         return self.name
