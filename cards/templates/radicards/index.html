@@ -7,7 +7,7 @@
 {% block content %}
   {% for template in template_list %}
     <div class="template template-{{  template.id }}">
-      <a href="{% url "create" template.id %}"><img src = "/{{ template.art.image }}"></a>
+      <a href="{% url "create" template.id %}"><img src = "{{ template.image }}"></a>
     </div>
   {% endfor %}
 {% endblock content %}

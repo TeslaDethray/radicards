@@ -2,13 +2,15 @@ from django.db import models
 from collections import defaultdict
 from constance import config
 from paintstore.fields import ColorPickerField
+import settings
+import os
 import hashlib
 
 class Artist(models.Model):
     first_name = models.CharField(max_length = 55)
     last_name = models.CharField(max_length = 55)
     biography = models.TextField(blank = True)
-    image = models.ImageField(upload_to = 'media/artist', blank = True)
+    image = models.ImageField(upload_to = os.path.join(settings.BASE_DIR, 'media/artist'), blank = True)
     url = models.CharField(max_length = 144, blank = True)
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
@@ -21,7 +23,7 @@ class Artist(models.Model):
 class Art(models.Model):
     name = models.CharField(max_length = 89)
     artist = models.ForeignKey(Artist, null = True, blank = True)
-    image = models.ImageField(upload_to = 'media/art')
+    image = models.ImageField(upload_to = os.path.join(settings.BASE_DIR, 'media/art'))
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
 
@@ -69,7 +71,7 @@ class Person(models.Model):
 
 class Font(models.Model):
     name = models.CharField(max_length = 34)
-    font_file = models.FileField(upload_to = 'media/fonts', null = True, blank = True)
+    font_file = models.FileField(upload_to = os.path.join(settings.BASE_DIR, 'media/fonts'), null = True, blank = True)
 
     def __str__(self):
         return self.name
@@ -90,6 +92,9 @@ class Template(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
 
+    def image(self):
+        image_location = str(self.art.image)
+        return image_location.replace(settings.BASE_DIR, '')
     def artist(self):
         return self.art.artist
     def form_fields(self, string_fields):

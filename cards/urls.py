@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from cards import views
 
 urlpatterns = patterns('',
@@ -12,6 +13,8 @@ urlpatterns = patterns('',
     url(r'^add/$', views.add, name = 'add'),
     url(r'^image/$', views.image, name = 'image'),
 )
+
+urlpatterns += staticfiles_urlpatterns()
 
 if settings.DEBUG:
     urlpatterns += patterns('',

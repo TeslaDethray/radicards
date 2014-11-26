@@ -1,8 +1,13 @@
 *.pyc
 */__pycache__/*
 *.sw*
+*.sqlite3
 .DS_Store
 media/art/*
 media/artist/*
 media/cards/*
 media/fonts/*
+static/admin
+static/cms
+static/paintstore
+static/suit

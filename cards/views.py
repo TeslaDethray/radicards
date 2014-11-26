@@ -39,7 +39,7 @@ def image(request): #Presses text to image
     #Hashing the image name
     image_name = request.GET.get('template') + '+' + request.GET.get('text')
     hash_object = hashlib.md5(str(image_name).encode())
-    card_location = settings.MEDIA_ROOT + "cards/" + hash_object.hexdigest() + ".jpg"
+    card_location = settings.MEDIA_ROOT + "/cards/" + hash_object.hexdigest() + ".jpg"
 
     #Check to see if this image already exists
     if not os.path.exists(card_location): 
