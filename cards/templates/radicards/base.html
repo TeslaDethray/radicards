@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="http://phpinfo/jquery-2.1.1.min.js" type="text/javascript"></script>
+  <title>{% block title %}{% endblock %}</title>
+  <style type="text/css">
+    body {background: #e8e8e8 url('http://phpinfo/bg.jpg') center center no-repeat;}
+    #content {width: 1060px; margin: 30px auto;}
+    .template {float: left;}
+    .template img {width: 300px; margin: 10px;}
+    #input-fields {float: left; width: 400px; border: 1px solid #b2b2b2; border-radius: 5px; background: rgba(255, 255, 255, 0.7); padding: 15px;}
+    #input-fields input[type="text"], #input-fields textarea {width: 275px; border: 1px solid #b2b2b2;}
+    input[type="submit"] {float: right;}
+    #card-preview {float: right;}
+    label {display: inline-block; width: 100px; text-align: right;}
+    #output-fields {float: right; width: 400px; border: 1px solid #b2b2b2; border-radius: 5px; background: rgba(255, 255, 255, 0.7); padding: 15px;}
+  </style>
+</head>
+
+<body>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block footer_scripts %}{% endblock footer_scripts %}
+</body>
+</html>

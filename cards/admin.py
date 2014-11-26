@@ -9,7 +9,7 @@ class ArtAdmin(admin.ModelAdmin):
 
 class CardAdmin(admin.ModelAdmin):
     list_display = ('id', 'sender', 'recipient', 'template', 'created_at')
-    list_display_links = None
+    list_display_links = ['sender']
 
     def has_add_permission(self, request):
         return False

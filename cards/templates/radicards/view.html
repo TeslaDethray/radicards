@@ -1,1 +1,19 @@
-{{ card }}
+{% extends "radicards/base.html" %}
+
+{% block title %}
+  Radicards
+{% endblock title %}
+
+{% block content %}
+  <img src="{{ media_url }}/cards/{{ card.hashed_id }}.jpg">
+  <div id="output-fields">
+    <div class="tag">
+      To: {{ card.recipient.first_name }} {{ card.recipient.last_name }}<br>
+      From: {{ card.sender.first_name }} {{ card.sender.last_name }}
+    </div>
+    <div id="share">
+      Share this on social media
+      {{ config.SHARE }}
+    </div>
+  </div>
+{% endblock content %}

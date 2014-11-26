@@ -94,7 +94,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = '/Users/tesladethray/Work/radicards/static/'
 
-MEDIA_URL = '/'
+MEDIA_URL = '/media/'
 
 MEDIA_ROOT = '/Users/tesladethray/Work/radicards/media/'
 
@@ -119,4 +119,5 @@ CONSTANCE_CONFIG = {
     'SHARE': ('Facebook, Twitter', "List the social networks for which you want buttons."),
     'FORM_FIELDS': ('sender_first_name, sender_last_name, sender_email, sender_postal_code, sender_referrer, sender_mailing_list, recipient_first_name, recipient_last_name, recipient_email, message', "Form fields available for the users to fill out"),
     'REQUIRED_FIELDS': ('sender_first_name, sender_email, recipient_first_name, recipient_email, message', "Required form fields"),
+    'NUM_FEATURED': (0, 'The number of featured cards to display on the homepage.'),
 }

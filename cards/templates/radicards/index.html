@@ -1,5 +1,13 @@
-{% for template in template_list %}
-  <div class="template template-{{  template.id }}">
-    <a href="{% url "create" template.id %}"><img src = "/{{ template.art.image }}"></a>
-  </div>
-{% endfor %}
+{% extends "radicards/base.html" %}
+
+{% block title %}
+  Radicards
+{% endblock title %}
+
+{% block content %}
+  {% for template in template_list %}
+    <div class="template template-{{  template.id }}">
+      <a href="{% url "create" template.id %}"><img src = "/{{ template.art.image }}"></a>
+    </div>
+  {% endfor %}
+{% endblock content %}
