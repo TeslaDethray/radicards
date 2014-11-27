@@ -15,6 +15,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
+    'cards.context_processors.config',
+    'cards.context_processors.this_year',
 )
 
 # Quick-start development settings - unsuitable for production
@@ -91,6 +93,8 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+if DEBUG:
+    STATIC_URL = 'http://localhost/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -98,10 +102,12 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+"""
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'media'),
     os.path.join(BASE_DIR, 'static'),
 )
+"""
 
 #Suit
 SUIT_CONFIG = {

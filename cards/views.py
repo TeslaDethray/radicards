@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
+from django.template import RequestContext
 from cards.models import Card, Template
 from constance import config
 from django.views import generic
@@ -8,12 +9,17 @@ import settings
 import hashlib
 import os
 
-class IndexView(generic.ListView):
-    model = Template
-    template_name = config.TEMPLATE + '/index.html'
+def add(request):
+    card = Card.create(request)
+    url = '/card/' + card.slug
+    return HttpResponseRedirect(url)
 
-    def get_queryset(self):
-        return Template.objects.order_by('order')[:config.NUM_CARDS]
+def artist(request, artist_id):
+    try:
+        artist = Artist.objects.get(pk = artist_id)
+    except Card.DoesNotExist:
+        raise Http404
+    return render(request, config.TEMPLATE + '/artist.html', {'artist': artist})
 
 def create(request, template_id):
     try:
@@ -23,17 +29,12 @@ def create(request, template_id):
     fields = config.FORM_FIELDS.split(',')
     return render(request, config.TEMPLATE + '/create.html', {'template': template, 'fields': template.form_fields(config.FORM_FIELDS), 'required': template.form_fields(config.REQUIRED_FIELDS), 'types': template.field_types, 'labels': template.field_labels})
 
-def view(request, slug):
-    try:
-        card = Card.objects.get(slug = slug)
-    except Card.DoesNotExist:
-        raise Http404
-    return render(request, config.TEMPLATE + '/view.html', {'card': card, 'media_url': settings.MEDIA_URL, 'config': config})
+class IndexView(generic.ListView):
+    model = Template
+    template_name = config.TEMPLATE + '/index.html'
 
-def add(request):
-    card = Card.create(request)
-    url = '/card/' + card.slug
-    return HttpResponseRedirect(url)
+    def get_queryset(self):
+        return Template.objects.order_by('order')[:config.NUM_CARDS]
 
 def image(request): #Presses text to image
     #Hashing the image name
@@ -56,4 +57,11 @@ def image(request): #Presses text to image
         im1.save(card_location)
 
     return HttpResponse('<img src="' + settings.MEDIA_URL + 'cards/' + hash_object.hexdigest() + '.jpg"><input type="hidden" name="hash" value="' + hash_object.hexdigest() + '">')
+
+def view(request, slug):
+    try:
+        card = Card.objects.get(slug = slug)
+    except Card.DoesNotExist:
+        raise Http404
+    return render(request, config.TEMPLATE + '/view.html', {'card': card, 'media_url': settings.MEDIA_URL, 'config': config})
 

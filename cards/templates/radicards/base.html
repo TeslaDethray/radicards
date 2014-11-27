@@ -1,44 +1,72 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <script src="http://phpinfo/jquery-2.1.1.min.js" type="text/javascript"></script>
-  <title>{% block title %}{% endblock %}</title>
-  <style type="text/css">
-    body {background: #e8e8e8 url('http://phpinfo/bg.jpg') center center no-repeat;}
-    #content {width: 1060px; margin: 30px auto;}
-    .template {float: left;}
-    .template img {width: 300px; margin: 10px;}
-    #input-fields {float: left; width: 400px; border: 1px solid #b2b2b2; border-radius: 5px; background: rgba(255, 255, 255, 0.7); padding: 15px;}
-    #input-fields input[type="text"], #input-fields textarea {width: 275px; border: 1px solid #b2b2b2;}
-    input[type="submit"] {float: right;}
-    #card-preview {float: right;}
-    label {display: inline-block; width: 100px; text-align: right;}
-    #output-fields {float: right; width: 400px; border: 1px solid #b2b2b2; border-radius: 5px; background: rgba(255, 255, 255, 0.7); padding: 15px;}
-  </style>
-  {% block metatags %}
-    <meta property="og:site_name" content="{{ config.SITE_NAME }}">
-    <meta property="og:title" content="{{ config.SITE_DESCRIPTION }}">
-    <meta property="og:description" content="{{ config.SITE_DESCRIPTION }}"> 
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="{{ config.BASE_URL }}">
-    <meta property="og:image" content= "{{ config.DEAFULT_IMAGE }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ config.FAVICON }}">
-    {%if config.TWITTER_HANDLE %}
-      <meta name="twitter:card" content="photo">
-      <meta name="twitter:site" content="@{{ config.TWITTER_HANDLE }}">
-      <meta name="twitter:title" content="{{ config.SITE_DESCRIPTION }}">
-      <meta name="twitter:image:src" content="{{ config.DEFAULT_IMAGE }}">
-      <meta name="twitter:domain" content="{{ config.BASE_URL }}">
-    {% endif %}
-  {% endblock metatags %}
-  {{ config.ANALYTICS_CODE }}
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config.SITE_NAME }} || {% block title %}Home{% endblock title %}</title>
 
-<body>
-    <div id="content">
-        {% block content %}{% endblock %}
+    <!-- Bootstrap -->
+    <link href="{% static "radicards/css/monosocialiconsfont.css" %}" rel="stylesheet">
+    <link href="{% static "radicards/css/bootstrap.min.css" %}" rel="stylesheet">
+    <link href="{% static "radicards/css/style.css" %}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="{% static "radicards/js/html5shiv.js" %}"></script>
+      <script src="{% static "radicards/js/respond.min.js" %}"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div id="logo">
+        <a href="#"><img src="{% static "radicards/images/logo.png" %}" alt="{{ config.SITE_NAME }}"></a>
+      </div>  
+      <nav class="navbar navbar-default" role="navigation">      
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          <div id="social">
+            <img src="http://placehold.it/32x32&text=social" alt="social">
+            <img src="http://placehold.it/32x32&text=social" alt="social">
+          </div>      
+            
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="http://strongfamiliesmovement.org/about">About</a></li>
+              <li><a href="#">Meet the Artists</a></li>
+              <li><a href="http://strongfamiliesmovement.org/contact-strong-families">Contact Us</a></li>
+              <li><a href="http://strongfamiliesmovement.org/join-as-an-individual">Join Our List</a></li>
+              <li><a href="http://strongfamiliesmovement.org/press-room">Press Room</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+      <div id="content">
+        {% block content %}{% endblock content %} 
+      </div>
+
+      <div id="footer">
+        <span style="float: left;">{{ config.SITE_NAME }} &copy; {{ this_year }} {{ config.ORGANIZATION_NAME }}</span>
+        <span style="float: right;">Powered by <a href="http://radicaldesigns.org"><img src="{% static "radicards/images/credit.png" %}" border=0 alt="radicalDESIGNS" class="credit"></a></span>
+      </div>
     </div>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static "radicards/js//jquery-2.1.1.min.js" %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static "radicards/js/bootstrap.min.js" %}"></script>
     {% block footer_scripts %}{% endblock footer_scripts %}
-</body>
+  </body>
 </html>

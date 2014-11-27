@@ -4,6 +4,6 @@ from constance import config
 
 register = template.Library()
 
-class SocialMediaButtons(Node):
-    def render(self, context):
-        return config.SHARE
+@register.filter
+def render(self, context):
+    return config.SHARE

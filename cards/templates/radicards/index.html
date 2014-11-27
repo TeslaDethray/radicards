@@ -1,13 +1,19 @@
 {% extends "radicards/base.html" %}
 
 {% block title %}
-  Radicards
+Home
 {% endblock title %}
 
 {% block content %}
-  {% for template in template_list %}
-    <div class="template template-{{  template.id }}">
-      <a href="{% url "create" template.id %}"><img src = "{{ template.image }}"></a>
+    <div id="intro">
+      <h2 style="padding:0px;margin-top:0;">Mama's Day Our Way</h2>
+      <h3 style="padding:0px;margin-top:0;">Send an E-Card!</h3>
+      <p>Send our original e-cards to the all mamas in your life. Click on an image to enlarge, choose your favorite, and then add a custom message. We invite you to share your cards with your friends and loved ones via email, Facebook, Twitter and more. To learn more about the artists, <a href="#">click here</a>.</p>
     </div>
-  {% endfor %}
+
+    <div class="row">
+      {% for template in template_list %}
+        <div style="" class="col-xs-6 col-sm-4 col-md-3" class="template template-{{ template.id }}"><a href="{% url "create" template.id %}" title="{{ template.id }}"><img src="{{ template.image }}" border="0" class="card-thumbs"></a></div>
+      {% endfor %}
+    </div>
 {% endblock content %}

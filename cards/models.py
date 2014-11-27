@@ -94,7 +94,7 @@ class Template(models.Model):
 
     def image(self):
         image_location = str(self.art.image)
-        return image_location.replace(settings.BASE_DIR, '')
+        return '/' + image_location.replace(settings.BASE_DIR, '')
     def artist(self):
         return self.art.artist
     def form_fields(self, string_fields):

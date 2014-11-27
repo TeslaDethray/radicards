@@ -1,18 +1,46 @@
 {% extends "radicards/base.html" %}
 
 {% block title %}
-  Radicards
+  View Your Card
 {% endblock title %}
 
+    <div id="intro">
+      <h2 style="padding:0px;margin-top:0;">Mama's Day Our Way</h2>
+      <h3 style="padding:0px;margin-top:0;">Card Title</h3>
+      <h4>by <a href="">Artist's Name</a></h4>
+    </div>
+
+    <div class="row">
+      <div style="" class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"><a href="#" title="23"><img src="http://www.mamasday.org/thumbnails/Amaryllis-birthright-with-logo.png" border="0" class="card-thumbs"></a></div>      
+    </div>
+    <div id="intro">
+      <div id="share"><h4>Share This Card:</h4>
+        <img src="http://placehold.it/100x50&text=facebook" alt="social" style="margin-bottom:10px;">
+        <img src="http://placehold.it/100x50&text=twitter" alt="social" style="margin-bottom:10px;">
+        <img src="http://placehold.it/100x50&text=email" alt="social" style="margin-bottom:10px;">
+        <img src="http://placehold.it/100x50&text=other" alt="social" style="margin-bottom:10px;">              
+      </div>  
+    </div>
+
 {% block content %}
-  <img src="{{ media_url }}/cards/{{ card.hashed_id }}.jpg">
+  <div id="row">
+    <div style="float: left;" class=""><img src="{{ media_url }}/cards/{{ card.hashed_id }}.jpg" border="0" class="card-thumbs"></div>      
+  </div>
   <div id="output-fields">
-    <div class="tag">
+    <div id="tag">
       To: {{ card.recipient.first_name }} {{ card.recipient.last_name }}<br>
       From: {{ card.sender.first_name }} {{ card.sender.last_name }}
     </div>
+    <hr width=80%>
+    <div id="artist-credit">
+      {{ card.template.art }}
+      {% if card.template.art.artist %}
+        by <a href="{% url "artist" card.template.art.artist.id %}">{{ card.template.art.artist }}</a>
+      {% endif %}
+    </div>
+    <hr width=80%>
     <div id="share">
-      Share this on social media
+      Share this card:<br>
       {{ config.SHARE }}
     </div>
   </div>
