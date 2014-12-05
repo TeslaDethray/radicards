@@ -1,9 +1,5 @@
 {% extends "radicards/base.html" %}
 
-{% block title %}
-Home
-{% endblock title %}
-
 {% block content %}
     <div id="intro">
       <h2 style="padding:0px;margin-top:0;">Mama's Day Our Way</h2>
@@ -13,7 +9,7 @@ Home
 
     <div class="row">
       {% for template in template_list %}
-        <div style="" class="col-xs-6 col-sm-4 col-md-3" class="template template-{{ template.id }}"><a href="{% url "create" template.id %}" title="{{ template.id }}"><img src="{{ template.image }}" border="0" class="card-thumbs"></a></div>
+        <div style="" class="col-xs-6 col-sm-4 col-md-3 template template-{{ template.id }}"><a href="{% url "create" template.id %}" title="{{ template.id }}"><img src="{{ template.image }}" border="0" class="card-thumbs"></a></div>
       {% endfor %}
     </div>
 {% endblock content %}

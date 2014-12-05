@@ -1,0 +1,9 @@
+{% extends "radicards/base.html" %}
+
+{% block content %}
+    <div class="row">
+      {% for artist in artist_list %}
+        <div style="" class="col-xs-6 col-sm-4 col-md-3 artist artist-{{ artist.id }}"><a href="{% url "artist" artist.id %}" title="{{ artist }}"><img src="{{ artist.image_name }}" border="0" class="artist-thumbs"><br>{{ artist }}</a></div>
+      {% endfor %}
+    </div>
+{% endblock content %}

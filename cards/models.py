@@ -15,6 +15,9 @@ class Artist(models.Model):
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
 
+    def image_name(self):
+        return settings.MEDIA_URL + 'artist/' + str(self.image).split('/')[-1]
+
     def __str__(self):
         return self.first_name + ' ' + self.last_name
     def __unicode__(self): #Python 2.x
@@ -26,6 +29,9 @@ class Art(models.Model):
     image = models.ImageField(upload_to = os.path.join(settings.BASE_DIR, 'media/art'))
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
+
+    def image_name(self):
+        return settings.MEDIA_URL + 'art/' + str(self.image).split('/')[-1]
 
     class Meta:
         verbose_name_plural = 'art'

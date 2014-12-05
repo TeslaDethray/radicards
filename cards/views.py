@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.template import RequestContext
-from cards.models import Card, Template
+from cards.models import Art, Artist, Card, Template
 from constance import config
 from django.views import generic
 from PIL import Image, ImageDraw, ImageFont
@@ -19,7 +19,19 @@ def artist(request, artist_id):
         artist = Artist.objects.get(pk = artist_id)
     except Card.DoesNotExist:
         raise Http404
-    return render(request, config.TEMPLATE + '/artist.html', {'artist': artist})
+    art = Art.objects.filter(artist_id = artist_id)
+    art_ids = []
+    for art_piece in art:
+        art_ids.append(art_piece.id)
+    templates = Template.objects.filter(pk__in = art_ids)
+    return render(request, config.TEMPLATE + '/artist.html', {'artist': artist, 'templates': templates})
+
+class IndexArtistView(generic.ListView):
+    model = Artist
+    template_name = config.TEMPLATE + '/index_artist.html'
+
+    def get_queryset(self):
+        return Artist.objects.order_by('last_name')
 
 def create(request, template_id):
     try:

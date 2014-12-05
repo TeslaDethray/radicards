@@ -68,7 +68,9 @@ body {
   #social {
     display: none;
   }
-  .navbar-default ul, #output-fields {
+  .navbar-default ul, 
+  #output-fields,
+  #input-fields {
     background-color: #f8f8f8;
     border: #e7e7e7 1px solid;
   }
@@ -80,6 +82,32 @@ body {
 @media (min-width: 992px) {
   #logo {
     width: 315px;
+  }
+  #input-fields {
+    width: 375px;
+    padding: 15px;
+    float: left;
+  }
+  #input-fields label {
+    text-align: right;
+    width: 105px;
+    margin-right: 10px;
+  }
+  #input-fields label[for="sender_mailing_list"] {
+    width: 150px;
+  }
+  #input-fields .type-hidden {
+    display: none;
+  }
+  #input-fields input[type="text"],
+  #input-fields textarea {
+    width: 220px;
+  }
+  #input-fields input[type="submit"] {
+    float: right;
+  }
+  #card-preview {
+    float: right;
   }
   #share {
     width: 100%;

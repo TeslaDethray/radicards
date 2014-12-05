@@ -12,7 +12,8 @@ urlpatterns = patterns('',
     url(r'^create/(?P<template_id>[0-9]+)/$', views.create, name = 'create'),
     url(r'^add/$', views.add, name = 'add'),
     url(r'^image/$', views.image, name = 'image'),
-    url(r'^artist/(?P<id>[0-9]+)/$', views.artist, name = 'artist'),
+    url(r'^artists/', views.IndexArtistView.as_view(), name = 'index_artist'),
+    url(r'^artist/(?P<artist_id>[0-9]+)/$', views.artist, name = 'artist'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

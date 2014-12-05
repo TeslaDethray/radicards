@@ -1,1 +1,16 @@
-{{ artist }}
+{% extends "radicards/base.html" %}
+
+{% block content %}
+    <div id="intro artist-{{ artist.id }}">
+      <h2 class="artist-name">{{ artist }}</h2>
+      <div style="" class="artist-image"><img src="{{ artist.image_name }}" border="0" class="artist-thumbs"></div>
+      <div class="artist-bio">{{ artist.biography }}</div>
+      <div class="artist-url"><a href="{{ artist.url }}">{{ artist.url }}</a></div>
+    </div>
+
+    <h3>Cards by this Artist</h3>
+    <div class="row">
+      {% for template in templates %}
+      <div style="" class="col-xs-6 col-sm-4 col-md-3 template template-{{ template.id }}"><a href="{% url "create" template.id %}" title="{{ template.id }}"><img src="{{ template.image }}" border="0" class="card-thumbs">{{ template }}</a></div>
+      {% endfor %}
+{% endblock content %}

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config.SITE_NAME }} || {% block title %}Home{% endblock title %}</title>
+    <title>{{ config.SITE_NAME }} || {% block title %}{{ config.TAGLINE }}{% endblock title %}</title>
 
     <!-- Bootstrap -->
     <link href="{% static "radicards/css/monosocialiconsfont.css" %}" rel="stylesheet">
@@ -59,7 +59,9 @@
 
       <div id="footer">
         <span style="float: left;">{{ config.SITE_NAME }} &copy; {{ this_year }} {{ config.ORGANIZATION_NAME }}</span>
-        <span style="float: right;">Powered by <a href="http://radicaldesigns.org"><img src="{% static "radicards/images/credit.png" %}" border=0 alt="radicalDESIGNS" class="credit"></a></span>
+        {% if config.RD_CREDIT %}
+          <span style="float: right;">Powered by <a href="http://radicaldesigns.org"><img src="{% static "radicards/images/credit.png" %}" border=0 alt="radicalDESIGNS" class="credit"></a></span>
+        {% endif %}
       </div>
     </div>
 

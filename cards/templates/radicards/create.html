@@ -17,7 +17,7 @@
   <div id="sender-fields">
     <h2>You</h2>
   {% for field in fields.sender %}
-    <div class="form-field">
+    <div class="form-field type-{{ types|keyvalue:field }}">
       <label for="sender_{{ field }}">{{ labels|keyvalue:field }}
         {% if field in required.sender %}
           *
@@ -35,7 +35,7 @@
   <div id="recipient-fields">
     <h2>Your Friend</h2>
   {% for field in fields.recipient %}
-    <div class="form-field">
+    <div class="form-field type-{{ types|keyvalue:field }}">
       <label for="recipient_{{ field }}">{{ labels|keyvalue:field }}
         {% if field in required.recipient %}
           *
@@ -51,7 +51,7 @@
   </div>
 
   {% if fields.message %}
-    <div id="message-field" class="form-field">
+    <div id="message-field" class="form-field type-textarea">
       <label for="message">Message
         {% if required.message %}
           *
@@ -65,7 +65,7 @@
     </div>
   {% endif %}
 
-  <input type="submit" value="Submit" />
+  <input type="submit" value="Send" class="btn"/>
 </div>
 
 <div id="card-preview">
