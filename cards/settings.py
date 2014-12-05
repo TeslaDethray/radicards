@@ -133,4 +133,5 @@ CONSTANCE_CONFIG = {
     'NUM_FEATURED': (0, 'The number of featured cards to display on the homepage.'),
     'TAGLINE': ('Your own meme generator!', "Your site's tagline as appears in the title bar."),
     'RD_CREDIT': (True, 'Check to display our credit at the bottom of your site.'),
+    'INTRO': ('', 'The intro for your homepage goes here'),
 }

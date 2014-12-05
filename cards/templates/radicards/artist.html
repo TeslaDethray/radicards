@@ -1,5 +1,9 @@
 {% extends "radicards/base.html" %}
 
+{% block title %}
+    Artist Profile: {{ artist }}
+{% endblock title %}
+
 {% block content %}
     <div id="intro artist-{{ artist.id }}">
       <h2 class="artist-name">{{ artist }}</h2>
