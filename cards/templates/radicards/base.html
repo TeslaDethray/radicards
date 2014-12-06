@@ -18,7 +18,21 @@
       <script src="{% static "radicards/js/html5shiv.js" %}"></script>
       <script src="{% static "radicards/js/respond.min.js" %}"></script>
     <![endif]-->
+    <meta property="og:site_name" content="{{ config.SITE_NAME }}">
+    <meta property="og:description" content= "{{ config.TAGLINE }}"> 
+    <meta property="og:url" content="">
+    <meta property="og:type" content="article">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:domain" content="mamasday.org">
+    <meta name="twitter:card" content="photo">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "radicards/images/favicon.ico" %}">
     {% block og_tags %}
+      <meta property="og:title" content="{{ config.TAGLINE }}">
+      <meta property="og:type" content="article">
+      <meta property="og:image" content= "">
+      <meta name="twitter:card" content="photo">
+      <meta name="twitter:title" content="{{ config.TAGLINE }}">
+      <meta name="twitter:image:src" content="">
     {% endblock og_tags %}
   </head>
   <body>

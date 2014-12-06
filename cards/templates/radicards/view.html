@@ -6,6 +6,13 @@
   View Your Card
 {% endblock title %}
 
+{% block og_tags %}
+    <meta property="og:title" content="A card for {{ card.recipient.first_name }}">
+    <meta property="og:image" content= "{{ media_url }}/cards/{{ card.hashed_id }}.jpg">
+    <meta name="twitter:title" content="{{ config.message }}">
+    <meta name="twitter:image:src" content="{{ media_url }}/cards/{{ card.hashed_id }}.jpg">
+{% endblock og_tags %}
+
 {% block content %}
   <div id="row">
     <div style="float: left;" class=""><img src="{{ media_url }}/cards/{{ card.hashed_id }}.jpg" border="0" class="card-thumbs"></div>      
