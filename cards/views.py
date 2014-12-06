@@ -75,5 +75,5 @@ def view(request, slug):
         card = Card.objects.get(slug = slug)
     except Card.DoesNotExist:
         raise Http404
-    return render(request, config.TEMPLATE + '/view.html', {'card': card, 'media_url': settings.MEDIA_URL, 'config': config})
+    return render(request, config.TEMPLATE + '/view.html', {'card': card, 'url': request.build_absolute_uri(), 'media_url': settings.MEDIA_URL, 'config': config})
 

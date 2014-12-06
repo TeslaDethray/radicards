@@ -1,26 +1,10 @@
 {% extends "radicards/base.html" %}
 
+{% load social_buttons %}
+
 {% block title %}
   View Your Card
 {% endblock title %}
-
-    <div id="intro">
-      <h2 style="padding:0px;margin-top:0;">Mama's Day Our Way</h2>
-      <h3 style="padding:0px;margin-top:0;">Card Title</h3>
-      <h4>by <a href="">Artist's Name</a></h4>
-    </div>
-
-    <div class="row">
-      <div style="" class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"><a href="#" title="23"><img src="http://www.mamasday.org/thumbnails/Amaryllis-birthright-with-logo.png" border="0" class="card-thumbs"></a></div>      
-    </div>
-    <div id="intro">
-      <div id="share"><h4>Share This Card:</h4>
-        <img src="http://placehold.it/100x50&text=facebook" alt="social" style="margin-bottom:10px;">
-        <img src="http://placehold.it/100x50&text=twitter" alt="social" style="margin-bottom:10px;">
-        <img src="http://placehold.it/100x50&text=email" alt="social" style="margin-bottom:10px;">
-        <img src="http://placehold.it/100x50&text=other" alt="social" style="margin-bottom:10px;">              
-      </div>  
-    </div>
 
 {% block content %}
   <div id="row">
@@ -41,7 +25,7 @@
     <hr width=80%>
     <div id="share">
       Share this card:<br>
-      {{ config.SHARE }}
+      {{ shares | render:url | safe }}
     </div>
   </div>
 {% endblock content %}
