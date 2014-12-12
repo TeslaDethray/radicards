@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=89)),
-                ('image', models.ImageField(upload_to=b'media/art')),
+                ('image', models.ImageField(upload_to=b'/Users/tesladethray/Work/radicards/media/art')),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
             ],
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=55)),
                 ('last_name', models.CharField(max_length=55)),
                 ('biography', models.TextField(blank=True)),
-                ('image', models.ImageField(upload_to=b'media/artist', blank=True)),
+                ('image', models.ImageField(upload_to=b'/Users/tesladethray/Work/radicards/media/artist', blank=True)),
                 ('url', models.CharField(max_length=144, blank=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
@@ -45,11 +45,24 @@ class Migration(migrations.Migration):
             name='Card',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('hashed_id', models.CharField(max_length=55, null=True)),
+                ('slug', models.SlugField(max_length=55)),
+                ('hashed_id', models.SlugField(max_length=55, null=True)),
                 ('short_url', models.CharField(max_length=55, null=True)),
                 ('message', models.TextField(null=True, blank=True)),
+                ('featured', models.BooleanField(default=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Font',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=34)),
+                ('font_file', models.FileField(null=True, upload_to=b'/Users/tesladethray/Work/radicards/media/fonts', blank=True)),
             ],
             options={
             },
@@ -59,7 +72,7 @@ class Migration(migrations.Migration):
             name='Person',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('first_name', models.CharField(max_length=55)),
+                ('first_name', models.CharField(max_length=55, blank=True)),
                 ('last_name', models.CharField(max_length=55, blank=True)),
                 ('email', models.CharField(max_length=89, blank=True)),
                 ('postal_code', models.CharField(max_length=13, blank=True)),
@@ -85,10 +98,11 @@ class Migration(migrations.Migration):
                 ('max_height', models.IntegerField(default=0)),
                 ('text_color', paintstore.fields.ColorPickerField(max_length=7)),
                 ('font_size', models.CharField(max_length=8)),
-                ('font_file', models.FileField(upload_to=b'media/fonts', blank=True)),
+                ('published', models.BooleanField(default=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
                 ('art', models.ForeignKey(to='cards.Art')),
+                ('font', models.ForeignKey(to='cards.Font')),
             ],
             options={
             },
