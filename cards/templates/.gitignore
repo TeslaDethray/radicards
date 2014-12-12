@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!base
+!radicards
+
+# ...even if they are in subdirectories
+!*/
