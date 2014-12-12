@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.template import RequestContext
@@ -11,7 +12,7 @@ import os
 
 def add(request):
     card = Card.create(request)
-    url = '/card/' + card.slug
+    url = reverse('view', kwargs = {'slug': card.slug}) + '?new=1'
     return HttpResponseRedirect(url)
 
 def artist(request, artist_id):
@@ -75,5 +76,9 @@ def view(request, slug):
         card = Card.objects.get(slug = slug)
     except Card.DoesNotExist:
         raise Http404
-    return render(request, config.TEMPLATE + '/view.html', {'card': card, 'url': request.build_absolute_uri(), 'media_url': settings.MEDIA_URL, 'config': config})
 
+    new = False
+    if request.GET.get('new'):
+        new = True
+
+    return render(request, config.TEMPLATE + '/view.html', {'card': card, 'url': request.build_absolute_uri(), 'media_url': settings.MEDIA_URL, 'config': config, 'new': new,})
