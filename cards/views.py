@@ -16,9 +16,25 @@ import os
 def add(request):
     card = Card.create(request)
     url = reverse('view', kwargs = {'slug': card.slug}) + '?new=1'
-    send_mail(config.EMAIL_SUBJECT, mark_safe(config.EMAIL_BODY), card.sender.email, [card.recipient.email], fail_silently = False)
-    send_mail(config.EMAIL_SUBJECT_SENDER, mark_safe(config.EMAIL_BODY_SENDER), card.sender.email, [card.sender.email], fail_silently = False)
+    sender_subject = add_replace(card, config.EMAIL_SUBJECT_SENDER)
+    sender_body = add_replace(card, config.EMAIL_BODY_SENDER)
+    recipient_subject = add_replace(card, config.EMAIL_SUBJECT)
+    recipient_body = add_replace(card, config.EMAIL_BODY)
+
+    send_mail(recipient_subject, mark_safe(recipient_body), card.sender.email, [card.recipient.email], fail_silently = False)
+    send_mail(sender_subject, mark_safe(sender_body), card.sender.email, [card.sender.email], fail_silently = False)
     return HttpResponseRedirect(url)
+
+def add_replace(card, haystack):
+    replace_fields = {
+        'sender_first_name': card.sender.first_name,
+        'recipient_first_name': card.recipient.first_name,
+        'url': 'http://' + settings.DOMAIN + '/cards/' + card.slug,
+        'image': 'http://' + settings.DOMAIN + settings.MEDIA_URL + 'cards/' + card.slug + '.jpg',
+    }
+    for needle in replace_fields.keys():
+        haystack = haystack.replace('{{'+needle+'}}', replace_fields[needle])
+    return haystack
 
 def artist(request, artist_id):
     try:

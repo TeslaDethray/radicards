@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     url(r'^add/$', views.add, name = 'add'),
     url(r'^image/$', views.image, name = 'image'),
     url(r'^artists/', views.IndexArtistView.as_view(), name = 'index_artist'),
-    url(r'^artist/(?P<artist_id>[0-9]+)/$', views.artist, name = 'artist'),
+    #url(r'^artist/(?P<artist_id>[0-9]+)/$', views.artist, name = 'artist'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

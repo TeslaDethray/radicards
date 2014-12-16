@@ -140,3 +140,5 @@ CONSTANCE_CONFIG = {
     'EMAIL_SUBJECT_SENDER': ('You sent a card!', 'Subject for the email to the sender.'),
     'EMAIL_BODY_SENDER': ('You sent a card.', 'Body content for the email to the sender.'),
 }
+
+DOMAIN = 'giving.forestethics.org'

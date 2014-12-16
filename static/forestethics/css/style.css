@@ -47,7 +47,8 @@ a, a:visited, a:hover, a:active, .nav > li > a{
   width:100%;
 }
 h2, h3 {
-  font-family: "Gill Sans Regular", Helvetica, Arial, sans-serif;
+font-family: 'prenton', 'Arial', sans-serif;
+font-weight: normal;
 }
 h2{
   margin-top: 0;
@@ -81,6 +82,16 @@ h3 {
   float: left;
   margin: 0;
 }
+.share2{
+  padding-top:40px;
+  clear: both;
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+}
+.share2 img{
+  width: 40px;
+}
 .template {
   text-align: center;
   margin-bottom: 10px;
@@ -96,11 +107,20 @@ h3 {
   font-weight: lighter;
   display: block;
 }
-.credit a {
+.credit a, .artist a {
+  text-decoration: underline;
+}
+.create-credit{
+  float:right;
+  clear:right;
+  margin-top: 10px;
+}
+.create-credit a {
   text-decoration: underline;
 }
 #ugly-button {
   text-align: right;
+  float: right;
 }
 .template img.active {
   border: 3px solid #000000;
@@ -116,6 +136,15 @@ h3 {
   font-weight: bold;
   font-family: Helvetica, Arial, sans-serif;
   padding: 20px 15px;
+background: #ed9c28; /* Old browsers */
+background: -moz-linear-gradient(top,  #ed9c28 0%, #d58512 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ed9c28), color-stop(100%,#d58512)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ed9c28 0%,#d58512 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ed9c28 0%,#d58512 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ed9c28 0%,#d58512 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ed9c28 0%,#d58512 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed9c28', endColorstr='#d58512',GradientType=0 ); /* IE6-9 */
+  
 }
   #input-fields label {
     text-align: right;
@@ -144,7 +173,7 @@ h3 {
   width: 100%;
   text-align: center;
 }
-.completed-card img {
+.completed-card img, .completed-card .easyhtml5video {
   width: 90%;
 }
 #social {
@@ -192,7 +221,6 @@ h3 {
     max-width: none;
   }
 }
-
 @media (min-width: 750px) {
 .navbar-default li {
   border-right: 1px solid #000000;
@@ -209,10 +237,15 @@ h3 {
     w//idth: 90px;
     d//isplay: block !important;
   }
+  .share2{
+  float: left;
+  clear: none;
+  }
   .template {
   }
   .template img, .template .credit {
     w//idth: 330px;
+    max-height: 230px;
   }
   .template .credit {
     font-size: 13.14px;
@@ -220,12 +253,12 @@ h3 {
   #ugly-button {
     margin: 25px 0;
   }
-  #card-preview img, #card-preview embed {
+  #card-preview img, #card-preview .easyhtml5video {
     max-width: 100%;
     margin-top: 20px;
-  -webkit-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
   }
   #card-preview .credit{    
     margin-top:5px;
@@ -253,6 +286,7 @@ h3 {
   }
   .template img, .template .credit {
     w//idth: 285px;
+    max-height: none;
   }
   .template .credit {
     font-size: 11.38px;
@@ -268,7 +302,7 @@ h3 {
   #card-preview {
     float: right;
   }
-  #card-preview img, #card-preview embed {
+  #card-preview img, #card-preview .easyhtml5video {
     max-width: 560px;
   }
   #share {
@@ -306,7 +340,7 @@ h3 {
   #ugly-button {
     margin: 25px 0;
   }
-  #card-preview img, #card-preview embed {
+  #card-preview img, #card-preview .easyhtml5video {
     max-width: 750px;
   }
   #footer {  
