@@ -1,7 +1,10 @@
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.template import RequestContext
+from django.utils.safestring import mark_safe
+from subprocess import call
 from cards.models import Art, Artist, Card, Template
 from constance import config
 from django.views import generic
@@ -13,6 +16,8 @@ import os
 def add(request):
     card = Card.create(request)
     url = reverse('view', kwargs = {'slug': card.slug}) + '?new=1'
+    send_mail(config.EMAIL_SUBJECT, mark_safe(config.EMAIL_BODY), card.sender.email, [card.recipient.email], fail_silently = False)
+    send_mail(config.EMAIL_SUBJECT_SENDER, mark_safe(config.EMAIL_BODY_SENDER), card.sender.email, [card.sender.email], fail_silently = False)
     return HttpResponseRedirect(url)
 
 def artist(request, artist_id):
@@ -28,11 +33,11 @@ def artist(request, artist_id):
     return render(request, config.TEMPLATE + '/artist.html', {'artist': artist, 'templates': templates})
 
 class IndexArtistView(generic.ListView):
-    model = Artist
+    model = Template
     template_name = config.TEMPLATE + '/index_artist.html'
 
     def get_queryset(self):
-        return Artist.objects.order_by('last_name')
+        return Template.objects.order_by('order')
 
 def create(request, template_id):
     try:
@@ -51,25 +56,20 @@ class IndexView(generic.ListView):
 
 def image(request): #Presses text to image
     #Hashing the image name
-    image_name = request.GET.get('template') + '+' + request.GET.get('text')
+    message = str(request.GET.get('message'))
+    if message == 'None':
+        message = ''
+    
+    image_name = str(request.GET.get('template')) + '+' + message
     hash_object = hashlib.md5(str(image_name).encode())
     card_location = settings.MEDIA_ROOT + "/cards/" + hash_object.hexdigest() + ".jpg"
 
     #Check to see if this image already exists
     if not os.path.exists(card_location): 
-        template = Template.objects.get(pk = request.GET.get('template'))
-        font = ImageFont.truetype(str(template.font.font_file), int(template.font_size))
-        im1 = Image.open(str(template.art.image))
+	command = 'php /home/radicaldesigns/radicards/cards/templates/forestethics/image.php ' + str(request.GET.get('template')) + ' ' + hash_object.hexdigest() + " '" + message + "'"
+	call(command, shell = True)
 
-        # Drawing the text on the picture
-        draw = ImageDraw.Draw(im1)
-        draw.text((template.x_coord, template.y_coord), request.GET.get('text'), template.text_color, font = font)
-        draw = ImageDraw.Draw(im1)
-
-        # Save the image with a new name
-        im1.save(card_location)
-
-    return HttpResponse('<img src="' + settings.MEDIA_URL + 'cards/' + hash_object.hexdigest() + '.jpg"><input type="hidden" name="hash" value="' + hash_object.hexdigest() + '">')
+    return HttpResponse('<img src="' + settings.MEDIA_URL + 'cards/' + hash_object.hexdigest() + '.jpg"><input type="hidden" name="hash" value="' + hash_object.hexdigest() + '" template="' + str(request.GET.get('template')) + '" text="' + message + '">')
 
 def view(request, slug):
     try:

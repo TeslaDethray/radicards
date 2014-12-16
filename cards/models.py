@@ -12,6 +12,7 @@ class Artist(models.Model):
     biography = models.TextField(blank = True)
     image = models.ImageField(upload_to = os.path.join(settings.BASE_DIR, 'media/artist'), blank = True)
     url = models.CharField(max_length = 144, blank = True)
+    hometown = models.CharField(max_length = 144, blank = True, null = True)
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
 
@@ -27,6 +28,7 @@ class Art(models.Model):
     name = models.CharField(max_length = 89)
     artist = models.ForeignKey(Artist, null = True, blank = True)
     image = models.ImageField(upload_to = os.path.join(settings.BASE_DIR, 'media/art'))
+    year = models.IntegerField(blank = True, null = True)
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
 
@@ -94,13 +96,20 @@ class Template(models.Model):
     text_color = ColorPickerField()
     font = models.ForeignKey(Font)
     font_size = models.CharField(max_length = 8)
+    extra_image = models.ImageField(upload_to = os.path.join(settings.BASE_DIR, 'media/templates'), null = True, blank = True)
     published = models.BooleanField(default = True)
     created_at = models.DateTimeField(auto_now_add = True, null = True)
     updated_at = models.DateTimeField(auto_now = True, null = True)
 
+    def homepage_image(self):
+	image_location = str(self.art.image)
+        return image_location.replace(settings.BASE_DIR, '')
     def image(self):
-        image_location = str(self.art.image)
-        return '/' + image_location.replace(settings.BASE_DIR, '')
+        if not self.extra_image == '':
+		image_location = str(self.extra_image)
+	else:
+		image_location = str(self.art.image)
+        return image_location.replace(settings.BASE_DIR, '')
     def artist(self):
         return self.art.artist
     def form_fields(self, string_fields):

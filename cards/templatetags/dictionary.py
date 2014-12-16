@@ -5,6 +5,6 @@ register = template.Library()
 @register.filter
 def keyvalue(dict, key):    
     if key in dict:
-        return dict[key]
+        return str(dict[key]).replace('First ', '')
     return ''
 

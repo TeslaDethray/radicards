@@ -1,0 +1,314 @@
+html, body {
+  height: 100%
+}
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background: #e5f6ff url('../images/bg-top.png') repeat-x top center;
+  background-size: auto 130px;
+  min-height: 165px;
+}
+a, a:visited, a:hover, a:active, .nav > li > a{
+  color: #000000;
+}
+#content {
+  o//verflow: hidden;
+}
+.container {
+  position: relative;
+}
+#header {
+  min-height: 100px;
+  padding-top: 5px;
+}
+.navbar-default, .navbar-default ul {
+  background: none;
+  border: none;
+  font-size: 14px;
+}
+.navbar-default ul {
+  text-align: right;
+}
+.navbar-default li:last-child {
+  border-right: none;
+}
+.nav > li > a {
+  padding: 0 15px;
+}
+.navbar-collapse {
+  border: none;
+}
+#logo {
+  position:absolute;
+  top:5px;
+  left:5px;
+  z-index: 5;
+}
+#logo img {
+  width:100%;
+}
+h2, h3 {
+  font-family: "Gill Sans Regular", Helvetica, Arial, sans-serif;
+}
+h2{
+  margin-top: 0;
+}
+h3 {
+  font-size: 30px;
+}
+#intro {
+  text-align: left;
+  margin: 0 auto;
+  font-weight: lighter;
+}
+#intro span {
+  display:block;
+}
+#intro .text {
+  f//loat: left;
+}
+#intro .share {
+  background: url('../images/share.png') no-repeat;
+  background-size: 100% auto;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 24px;
+  f//loat: right;
+  text-align: center;
+  display: none !important;
+}
+#intro .share img {
+  width: 50%;
+  float: left;
+  margin: 0;
+}
+.template {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.template img {
+  -webkit-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+  max-height: 240px;
+}
+.credit {
+  text-align: right;
+  font-weight: lighter;
+  display: block;
+}
+.credit a {
+  text-decoration: underline;
+}
+#ugly-button {
+  text-align: right;
+}
+.template img.active {
+  border: 3px solid #000000;
+}
+#ugly-button.view-page {
+  text-align: center;
+}
+#ugly-button a, #ugly-button.view-page a {
+  color: #ffffff;
+}
+#ugly-button .btn {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 20px 15px;
+}
+  #input-fields label {
+    text-align: right;
+    width: 125px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  #input-fields label[for="sender_mailing_list"] {
+    width: 150px;
+  }
+  #input-fields .type-hidden {
+    display: none;
+  }
+  #input-fields input[type="text"] {
+    width: 200px;
+  }
+  #input-fields textarea {
+    width: 100%;
+  }
+  #input-fields input[type="submit"] {
+    float: right;
+  }
+
+
+.completed-card {
+  width: 100%;
+  text-align: center;
+}
+.completed-card img {
+  width: 90%;
+}
+#social {
+  float: right;
+  position: relative;
+  margin: 0 8px 5px 0;
+  padding: 9px 10px;
+}
+#share {
+  max-width: 300px;
+  margin: 0 auto;
+}
+#output-fields {
+  text-align: center;
+}
+.row img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+#footer {
+  width: 100%;
+  font-size: 14px;
+}
+#footer .top-part {
+  background: url('../images/bg-bottom.png') repeat-x bottom center;
+  background-size: auto 80px;
+  height: 165px;
+  display: block;
+}
+#footer .content-part {
+  background: #ffffff;
+  padding-bottom: 10px;
+}
+#footer .mission {
+  font-weight: lighter;
+}
+#footer .logo {}
+.clear {
+  clear: both;
+  float: none;
+}
+
+@media (min-width: 460px) {
+  #share {
+    max-width: none;
+  }
+}
+
+@media (min-width: 750px) {
+.navbar-default li {
+  border-right: 1px solid #000000;
+  margin: 10px 0;
+}
+
+  #intro {
+    font-size: 18px;
+  }
+  #intro .text {
+    w//idth: 540px;
+  }
+  #intro .share {
+    w//idth: 90px;
+    d//isplay: block !important;
+  }
+  .template {
+  }
+  .template img, .template .credit {
+    w//idth: 330px;
+  }
+  .template .credit {
+    font-size: 13.14px;
+  }
+  #ugly-button {
+    margin: 25px 0;
+  }
+  #card-preview img, #card-preview embed {
+    max-width: 100%;
+    margin-top: 20px;
+  -webkit-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 2px 5px 5px 0px rgba(0,0,0,0.75);
+  }
+  #card-preview .credit{    
+    margin-top:5px;
+  }
+  #social {
+    display: none;
+  }
+  .navbar-default ul, 
+}
+
+@media (min-width: 992px) {
+  h2 {
+    font-size: 37px;
+  }
+  #intro {
+    font-size: 24px;
+  }
+  #intro .text {
+    w//idth: 750px;
+  }
+  #intro .share {
+    w//idth: 125px;
+  }
+  .template {
+  }
+  .template img, .template .credit {
+    w//idth: 285px;
+  }
+  .template .credit {
+    font-size: 11.38px;
+  }
+  #ugly-button {
+    margin: 35px 0;
+  }
+  #input-fields {
+    width: 375px;
+    padding: 15px;
+    float: left;
+  }
+  #card-preview {
+    float: right;
+  }
+  #card-preview img, #card-preview embed {
+    max-width: 560px;
+  }
+  #share {
+    width: 100%;
+    text-align: center;
+  }
+  #footer .mission {
+    float: right;
+    text-align: right;
+    max-width: 500px;
+  }
+  #footer .logo {
+    float: left;
+    max-width: 225px;
+  }
+}
+
+@media (min-width: 1170px) {
+  h2 {
+    font-size: 40px;
+  }
+  #intro .text {
+    w//idth: 920px;
+  }
+  #intro .share {
+    w//idth: 166px;
+  }
+  .template img, .template .credit {
+    w//idth: 350px;
+    m//ax-width: 97%;
+  }
+  .template .credit {
+    font-size: 14px;
+  }
+  #ugly-button {
+    margin: 25px 0;
+  }
+  #card-preview img, #card-preview embed {
+    max-width: 750px;
+  }
+  #footer {  
+  }
+}

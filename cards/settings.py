@@ -70,7 +70,8 @@ WSGI_APPLICATION = 'cards.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': '/home/radicaldesigns/radicards/db.sqlite3',
     }
 }
 
@@ -93,8 +94,8 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-if DEBUG:
-    STATIC_URL = 'http://localhost/'
+#if DEBUG:
+#    STATIC_URL = 'http://localhost/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -134,4 +135,8 @@ CONSTANCE_CONFIG = {
     'TAGLINE': ('Your own meme generator!', "Your site's tagline as appears in the title bar."),
     'RD_CREDIT': (True, 'Check to display our credit at the bottom of your site.'),
     'INTRO': ('', 'The intro for your homepage goes here'),
+    'EMAIL_SUBJECT': ('Here is a card!', 'Subject for the email.'),
+    'EMAIL_BODY': ('You got a card.', 'Body content for the email.'),
+    'EMAIL_SUBJECT_SENDER': ('You sent a card!', 'Subject for the email to the sender.'),
+    'EMAIL_BODY_SENDER': ('You sent a card.', 'Body content for the email to the sender.'),
 }
