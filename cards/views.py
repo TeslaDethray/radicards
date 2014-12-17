@@ -29,14 +29,14 @@ def add_replace(card, haystack):
     replace_fields = {
         'sender_first_name': card.sender.first_name,
         'recipient_first_name': card.recipient.first_name,
-        'url': 'http://' + settings.DOMAIN + '/cards/' + reverse('view', kwargs = {'slug': card.slug}),
-        'image': 'http://' + settings.DOMAIN + settings.MEDIA_URL + 'cards/' + card.slug + '.jpg',
+        'url': 'http://' + settings.DOMAIN + reverse('view', kwargs = {'slug': card.slug}),
+        'image': 'http://' + settings.DOMAIN + settings.MEDIA_URL + 'cards/' + card.hashed_id + '.jpg',
     }
+    if card.template.id == 6:
+	replace_fields['image'] = str(card.template.art.image).replace(settings.BASE_DIR, 'http://' + settings.DOMAIN)
+    
     for needle in replace_fields.keys():
-        if (card.template.id != 6) and (needle == 'image'):
-	    haystack = haystack.replace('{{'+needle+'}}', replace_fields[needle])
-        else:
-	    haystack = haystack.replace('{{'+needle+'}}', card.template.art.image)
+	haystack = haystack.replace('{{'+needle+'}}', replace_fields[needle])
             
     return haystack
 
