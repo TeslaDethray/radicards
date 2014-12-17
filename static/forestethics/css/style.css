@@ -6,6 +6,7 @@ body {
   background: #e5f6ff url('../images/bg-top.png') repeat-x top center;
   background-size: auto 130px;
   min-height: 165px;
+  color: #14325C;
 }
 a, a:visited, a:hover, a:active, .nav > li > a{
   color: #000000;
@@ -18,7 +19,7 @@ a, a:visited, a:hover, a:active, .nav > li > a{
 }
 #header {
   min-height: 100px;
-  padding-top: 5px;
+  margin-top:-15px;
 }
 .navbar-default, .navbar-default ul {
   background: none;
@@ -118,12 +119,15 @@ h3 {
 .create-credit a {
   text-decoration: underline;
 }
-#ugly-button {
+#ugly-button.home {
   text-align: right;
   float: right;
 }
 .template img.active {
-  border: 3px solid #000000;
+  b//order: 3px solid #000000;
+    -webkit-box-shadow: 2px 2px 20px 5px rgba(233, 152, 37,0.75);
+    -moz-box-shadow:    2px 2px 20px 5px rgba(233, 152, 37,0.75);
+    box-shadow:         2px 2px 20px 5px rgba(233, 152, 37,0.75);  
 }
 #ugly-button.view-page {
   text-align: center;
@@ -174,7 +178,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed9c28', end
   text-align: center;
 }
 .completed-card img, .completed-card .easyhtml5video {
-  width: 90%;
+  width: 100%;
 }
 #social {
   float: right;

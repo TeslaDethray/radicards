@@ -21,19 +21,23 @@ def add(request):
     recipient_subject = add_replace(card, config.EMAIL_SUBJECT)
     recipient_body = add_replace(card, config.EMAIL_BODY)
 
-    send_mail(recipient_subject, mark_safe(recipient_body), card.sender.email, [card.recipient.email], fail_silently = False)
-    send_mail(sender_subject, mark_safe(sender_body), card.sender.email, [card.sender.email], fail_silently = False)
+    send_mail(recipient_subject, None, card.sender.email, [card.recipient.email], fail_silently = False, html_message = mark_safe(recipient_body))
+    send_mail(sender_subject, None, card.sender.email, [card.sender.email], fail_silently = False, html_message = mark_safe(sender_body))
     return HttpResponseRedirect(url)
 
 def add_replace(card, haystack):
     replace_fields = {
         'sender_first_name': card.sender.first_name,
         'recipient_first_name': card.recipient.first_name,
-        'url': 'http://' + settings.DOMAIN + '/cards/' + card.slug,
+        'url': 'http://' + settings.DOMAIN + '/cards/' + reverse('view', kwargs = {'slug': card.slug}),
         'image': 'http://' + settings.DOMAIN + settings.MEDIA_URL + 'cards/' + card.slug + '.jpg',
     }
     for needle in replace_fields.keys():
-        haystack = haystack.replace('{{'+needle+'}}', replace_fields[needle])
+        if (card.template.id != 6) and (needle == 'image'):
+	    haystack = haystack.replace('{{'+needle+'}}', replace_fields[needle])
+        else:
+	    haystack = haystack.replace('{{'+needle+'}}', card.template.art.image)
+            
     return haystack
 
 def artist(request, artist_id):
