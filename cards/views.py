@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw, ImageFont
 import settings
 import hashlib
 import os
+import json
 
 def add(request):
     card = Card.create(request)
@@ -76,9 +77,7 @@ class IndexView(generic.ListView):
 
 def image(request): #Presses text to image
     #Hashing the image name
-    message = str(request.GET.get('message'))
-    if message == 'None':
-        message = ''
+    message = str(json.dumps(request.GET.get('message')))
     
     image_name = str(request.GET.get('template')) + '+' + message
     hash_object = hashlib.md5(str(image_name).encode())
@@ -86,7 +85,7 @@ def image(request): #Presses text to image
 
     #Check to see if this image already exists
     if not os.path.exists(card_location): 
-	command = 'php /home/radicaldesigns/radicards/cards/templates/forestethics/image.php ' + str(request.GET.get('template')) + ' ' + hash_object.hexdigest() + " '" + message + "'"
+	command = "php " + settings.BASE_DIR + "/cards/templates/forestethics/image.php " + str(request.GET.get('template')) + ' ' + hash_object.hexdigest() + " " + message
 	call(command, shell = True)
 
     return HttpResponse('<img src="' + settings.MEDIA_URL + 'cards/' + hash_object.hexdigest() + '.jpg"><input type="hidden" name="hash" value="' + hash_object.hexdigest() + '" template="' + str(request.GET.get('template')) + '" text="' + message + '">')
