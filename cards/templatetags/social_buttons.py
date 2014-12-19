@@ -6,13 +6,18 @@ from constance import config
 register = template.Library()
 
 def facebook(url):
-    return '<a href="https://facebook.com/sharer/sharer.php?u=' + url + '"><i class="icon-large icon-facebook"> </i></a>'
+    return '<a href="https://facebook.com/sharer/sharer.php?u=' + url + '"><img src="/static/forestethics/images/fe-fb.png" border=0 alt="Facebook"></a>'
 
-def twitter(url):
-    return '<a href="https://twitter.com/home?status==' + url + '"><i class="icon-large icon-twitter"> </i></a>'
+def twitter(url, role):
+    status = {
+        'sender': "Send Love, Save Forests",
+        'recipient': "<3 this beautiful card!",
+        'default': "Send a message of <3, forests %26 @ForestEthics",
+    }
+    return '<a href="https://twitter.com/home?status=' + status[role] + " " + url + '"><img src="/static/forestethics/images/fe-tw.png" border=0 alt="Twitter"</a>'
 
 def google(url):
-    return '<a href="https://plus.google.com/share?url=' + url + '"><i class="icon-large icon-google-plus"> </i></a>'
+    return '<a href="https://plus.google.com/share?url=' + url + '"><img src="/static/forestethics/images/fe-gp.png" border=0 alt="Google+"</a>'
 
 def tumblr(url):
     return '<a href="http://www.tumblr.com/share/link?url=' + url + '"><i class="icon-large icon-tumblr"> </i></a>'
@@ -25,9 +30,17 @@ def pinterest(url):
 
 @register.filter
 def render(self, url):
+    role = 'recipient'
+    if 'new' in url:
+        role = 'sender'
+    if 'share' in url:
+        role = 'default'
+
+    url = url.replace('?new=1', '').replace('?share=1', '')
+    url += '?share=1'
     buttons = {
         'facebook': facebook(url),
-        'twitter': twitter(url),
+        'twitter': twitter(url, role),
         'google+': google(url),
         'tumblr': tumblr(url),
         'pinterest': pinterest(url),
