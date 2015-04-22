@@ -2,12 +2,11 @@
 */__pycache__/*
 *.sw*
 .DS_Store
+*.sqlite3
 media/art/*
 media/artist/*
 media/cards/*
 media/fonts/*
-static/admin
-static/cms
-static/paintstore
-static/suit
-setup/django.wsgi
+static/*
+!static/radicards
+!static/robots.txt

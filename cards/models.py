@@ -105,11 +105,13 @@ class Template(models.Model):
 	image_location = str(self.art.image)
         return image_location.replace(settings.BASE_DIR, '')
     def image(self):
-        if not self.extra_image == '':
-		image_location = str(self.extra_image)
-	else:
-		image_location = str(self.art.image)
+        image_location = self.full_path_image()
         return image_location.replace(settings.BASE_DIR, '')
+    def full_path_image(self):
+        if not self.extra_image == '':
+	    return str(self.extra_image)
+        return str(self.art.image)
+
     def artist(self):
         return self.art.artist
     def form_fields(self, string_fields):

@@ -4,7 +4,6 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.template import RequestContext
 from django.utils.safestring import mark_safe
-from subprocess import call
 from cards.models import Art, Artist, Card, Template
 from constance import config
 from django.views import generic
@@ -12,8 +11,6 @@ from PIL import Image, ImageDraw, ImageFont
 import settings
 import hashlib
 import os
-import json
-import pprint
 
 def add(request):
     card = Card.create(request)
@@ -23,8 +20,8 @@ def add(request):
     recipient_subject = add_replace(card, config.EMAIL_SUBJECT)
     recipient_body = add_replace(card, config.EMAIL_BODY)
 
-    send_mail(recipient_subject, None, card.sender.email, [card.recipient.email], fail_silently = False, html_message = mark_safe(recipient_body))
-    send_mail(sender_subject, None, card.sender.email, [card.sender.email], fail_silently = False, html_message = mark_safe(sender_body))
+    send_mail(recipient_subject, None, card.sender.email, [card.recipient.email], fail_silently = True, html_message = mark_safe(recipient_body))
+    send_mail(sender_subject, None, card.sender.email, [card.sender.email], fail_silently = True, html_message = mark_safe(sender_body))
     return HttpResponseRedirect(url)
 
 def add_replace(card, haystack):
@@ -77,7 +74,9 @@ class IndexView(generic.ListView):
         return Template.objects.order_by('order')[:config.NUM_CARDS]
 
 def image(request): #Presses text to image
-    message = str(json.dumps(request.GET.get('message')))
+    message = str(request.GET.get('message'))
+    if not message:
+        message = ' '
     
     #Hashing the image name
     image_name = str(request.GET.get('template')) + '+' + message
@@ -85,18 +84,19 @@ def image(request): #Presses text to image
     card_location = settings.MEDIA_ROOT + "/cards/" + hash_object.hexdigest() + ".jpg"
 
     template = Template.objects.get(pk = request.GET.get('template'))
+
     #Check to see if this image already exists
     if not os.path.exists(card_location): 
-        return HttpResponse(txt2img(template.image, card_location, message, template.text_color, template.font.font_file, template.font_size))
+        txt2img(template.full_path_image(), card_location, message, template.text_color, template.font.font_file, int(template.font_size), int(template.x_coord), int(template.y_coord))
 
     return HttpResponse('<img src="' + settings.MEDIA_URL + 'cards/' + hash_object.hexdigest() + '.jpg"><input type="hidden" name="hash" value="' + hash_object.hexdigest() + '" template="' + str(request.GET.get('template')) + '" text="' + message + '">')
 
-def txt2img(img_name, new_img_name, text, font_color, font_file, font_size, bg = "#ffffff"):
+def txt2img(img_name, new_img_name, text, font_color, font_file, font_size, x_coord = 0, y_coord = 0, bg = "#ffffff"):
     fnt = ImageFont.truetype(font_file, font_size)
     lineWidth = 20
     img = Image.open(img_name)
     draw = ImageDraw.Draw(img)                     # setup to draw on the main image
-    draw.text((10,0), text, font = fnt, fill = bg)      # add some text to the main
+    draw.text((x_coord, y_coord), text, font = fnt, fill = font_color)      # add some text to the main
     del draw 
     img.save(new_img_name, "JPEG", quality = 100)  
 
