@@ -13,6 +13,7 @@ import settings
 import hashlib
 import os
 import json
+import pprint
 
 def add(request):
     card = Card.create(request)
@@ -76,19 +77,28 @@ class IndexView(generic.ListView):
         return Template.objects.order_by('order')[:config.NUM_CARDS]
 
 def image(request): #Presses text to image
-    #Hashing the image name
     message = str(json.dumps(request.GET.get('message')))
     
+    #Hashing the image name
     image_name = str(request.GET.get('template')) + '+' + message
     hash_object = hashlib.md5(str(image_name).encode())
     card_location = settings.MEDIA_ROOT + "/cards/" + hash_object.hexdigest() + ".jpg"
 
+    template = Template.objects.get(pk = request.GET.get('template'))
     #Check to see if this image already exists
     if not os.path.exists(card_location): 
-	command = "php " + settings.BASE_DIR + "/cards/templates/forestethics/image.php " + str(request.GET.get('template')) + ' ' + hash_object.hexdigest() + " " + message
-	call(command, shell = True)
+        return HttpResponse(txt2img(template.image, card_location, message, template.text_color, template.font.font_file, template.font_size))
 
     return HttpResponse('<img src="' + settings.MEDIA_URL + 'cards/' + hash_object.hexdigest() + '.jpg"><input type="hidden" name="hash" value="' + hash_object.hexdigest() + '" template="' + str(request.GET.get('template')) + '" text="' + message + '">')
+
+def txt2img(img_name, new_img_name, text, font_color, font_file, font_size, bg = "#ffffff"):
+    fnt = ImageFont.truetype(font_file, font_size)
+    lineWidth = 20
+    img = Image.open(img_name)
+    draw = ImageDraw.Draw(img)                     # setup to draw on the main image
+    draw.text((10,0), text, font = fnt, fill = bg)      # add some text to the main
+    del draw 
+    img.save(new_img_name, "JPEG", quality = 100)  
 
 def view(request, slug):
     try:
